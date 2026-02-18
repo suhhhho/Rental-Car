@@ -105,4 +105,14 @@ describe("rentalPrice", () => {
         const quote = price("Lisbon", "Lisbon", "2024-07-10", "2024-07-08", "compact", 30, 3);
         expect(quote).toBe("$34.50");
     });
+
+    test("charges regular price for weekday-only rentals", () => {
+        const quote = price("Tallinn", "Tallinn", "2024-02-05", "2024-02-07", "compact", 50, 30);
+        expect(quote).toBe("$150.00");
+    });
+
+    test("adds a 5% surcharge for weekend days", () => {
+        const quote = price("Tallinn", "Tallinn", "2024-02-08", "2024-02-10", "compact", 50, 30);
+        expect(quote).toBe("$152.50");
+    });
 });
